@@ -11,7 +11,7 @@ export default class PhonesPage {
       this._filter = new Sort({element: document.querySelector(".sort")});
       this._cart = new Cart({element: document.querySelector(".cart")});
       this._phonesCatalog = new PhonesCatalog({element: document.querySelector(".phones-catalog"), phones: phoneService.getAllPhones(), onPhoneSelected: (phoneId) => {
-        const selectedPhone = this._phonesCatalog._getById(phoneId); console.log(selectedPhone)
+        const selectedPhone = phoneService.getPhoneById(phoneId); console.log(selectedPhone)
       }});
       this._phoneViewer = new PhoneViewer({element: document.querySelector(".phone-viewer")});
     }
