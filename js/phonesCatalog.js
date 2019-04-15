@@ -12,7 +12,20 @@ export default class PhonesCatalog {
         if(!detailsLink) return;
         this._onPhoneSelected(detailsLink.dataset.phoneId);
     });
+    this._element.addEventListener("mouseover", (event) => {
+      const li = event.target.closest('.thumbnail');
+      if(!li) return;
+      li.querySelector(".btn-success").style.visibility = "";
+      li.addEventListener("mouseout", () => {
+        li.querySelector(".btn-success").style.visibility = "hidden";
+      })
+    });
+
     }
+
+    hide() {
+      this._element.hidden = true;
+    };
 
     _render() {
         this._element.innerHTML = 
@@ -28,7 +41,7 @@ export default class PhonesCatalog {
         </a>
 
         <div class="phones__btn-buy-wrapper">
-          <a class="btn btn-success">
+          <a class="btn btn-success" style="visibility: hidden">
             Add
           </a>
         </div>

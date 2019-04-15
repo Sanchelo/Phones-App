@@ -1,7 +1,16 @@
 export default class PhoneViewer {
     constructor({element}) {
     this._element = element;
-    this._render();
+    this._props = {
+      phone: null,
+    };
+
+    }
+
+    show(phone) {
+      this._props.phone = phone;
+      this._element.hidden = false;
+      this._render();
     }
     _render() {
     this._element.innerHTML = 
