@@ -1,6 +1,8 @@
-export default class PhoneViewer {
+import Component from "./component.js";
+
+export default class PhoneViewer extends Component {
     constructor({element, onBack}) {
-    this._element = element;
+    super({element});
     this._props = {
       phone: null,
       onBack: onBack,
@@ -17,8 +19,8 @@ export default class PhoneViewer {
 
     show(phone) {
       this._props.phone = phone;
-      this._element.hidden = false;
       this._render();
+      super.show();
     }
     _render() {
     this._element.innerHTML = 
@@ -55,9 +57,5 @@ export default class PhoneViewer {
     </div>
     `;
     }
-
-    hide() {
-      this._element.hidden = true;
-    };
 
 }

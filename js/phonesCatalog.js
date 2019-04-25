@@ -1,16 +1,4 @@
-class Component {
-  constructor({element}) {
-    this._element = element;
-  }
-  hide() {
-    this._element.hidden = true;
-  };
-  show() {
-    this._element.hidden = false;
-  };
-};
-
-
+import Component from "./component.js";
 
 export default class PhonesCatalog extends Component {
     constructor({element, phones, onPhoneSelected}) {

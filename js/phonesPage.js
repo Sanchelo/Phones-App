@@ -3,10 +3,11 @@ import Cart from "./cart.js";
 import PhonesCatalog from "./phonesCatalog.js";
 import PhoneViewer from "./phoneViewer.js";
 import phoneService from "./phoneService.js";
+import Component from "./component.js";
 
-export default class PhonesPage {
+export default class PhonesPage extends Component {
     constructor({element}) {
-      this._element = element;
+      super({element});
       this._state = {
         phones: phoneService.getAllPhones(),
         selectedPhone: null,
@@ -22,12 +23,22 @@ export default class PhonesPage {
     }
 
     _initCatalog() {
-      this._phonesCatalog = new PhonesCatalog({element: document.querySelector(".phones-catalog"), phones: this._state.phones, onPhoneSelected: (phoneId) => {
-        const selectedPhone = phoneService.getPhoneById(phoneId);
-        this._state.selectedPhone = selectedPhone;
+      this._phonesCatalog = new PhonesCatalog({element: document.querySelector(".phones-catalog"), 
+
+      phones: this._state.phones, 
+
+      onPhoneSelected: (phoneId) => {
+       const selectedPhone = phoneService.getPhoneById(phoneId);
+       this._state.selectedPhone = selectedPhone;
        this._phonesCatalog.hide();
        this._phoneViewer.show(selectedPhone);
-      }});
+      },
+
+      onAdd: (phoneId) => {
+      this._cart.add(phoneId);
+      },
+      
+    });
     };
 
     _initViewer() {
@@ -67,7 +78,7 @@ export default class PhonesPage {
           <div class="col-md-10 phones-catalog">
           
           </div>
-          <div class="phone-viewer" hidden></div>
+          <div class="phone-viewer"></div>
         </div>
       </div>
     `;
