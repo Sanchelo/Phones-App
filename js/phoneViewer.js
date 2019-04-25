@@ -1,9 +1,17 @@
 export default class PhoneViewer {
-    constructor({element}) {
+    constructor({element, onBack}) {
     this._element = element;
     this._props = {
       phone: null,
+      onBack: onBack,
     };
+
+    this._element.addEventListener("click", (event) => {
+    const target = event.target.closest(".back-button");
+    if(!target) return;
+    this._props.onBack();
+    }); 
+
 
     }
 
@@ -18,7 +26,7 @@ export default class PhoneViewer {
     <div>
     <img class="phone" src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
 
-    <button>Back</button>
+    <button class="back-button">Back</button>
     <button>Add to basket</button>
     <h1>Motorola XOOM™ with Wi-Fi</h1>
 
@@ -47,4 +55,9 @@ export default class PhoneViewer {
     </div>
     `;
     }
+
+    hide() {
+      this._element.hidden = true;
+    };
+
 }

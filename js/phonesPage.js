@@ -31,7 +31,12 @@ export default class PhonesPage {
     };
 
     _initViewer() {
-      this._phoneViewer = new PhoneViewer({element: document.querySelector(".phone-viewer")});
+      this._phoneViewer = new PhoneViewer({element: document.querySelector(".phone-viewer"),
+      onBack: () => {
+      this._phonesCatalog.show();
+      this._phoneViewer.hide()
+      }
+    });
     };
 
     _initCart() {
