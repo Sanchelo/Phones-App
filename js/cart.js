@@ -13,7 +13,7 @@ export default class Cart extends Component {
     `
     <p>Shopping Cart</p>
               <ul>
-                ${this._state.items.map(item => `<li>${item}</li>`).join("")}
+                ${this._state.items.map(item => `<li><span>${item}</span><button>X</button></li>`).join("")}
               </ul>
     `;
     };
