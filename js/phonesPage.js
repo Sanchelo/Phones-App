@@ -31,7 +31,8 @@ export default class PhonesPage extends Component {
        const selectedPhone = phoneService.getPhoneById(phoneId);
        this._state.selectedPhone = selectedPhone;
        this._phonesCatalog.hide();
-       this._phoneViewer.show(selectedPhone);
+       this._phoneViewer.setProps({phone: selectedPhone});
+       this._phoneViewer.show();
       },
 
       onAdd: (phoneId) => {
@@ -46,7 +47,10 @@ export default class PhonesPage extends Component {
       onBack: () => {
       this._phonesCatalog.show();
       this._phoneViewer.hide()
-      }
+      },
+      onAdd: (phoneId) => {
+        this._cart.add(phoneId);
+        },
     });
     };
 

@@ -24,13 +24,7 @@ export default class Cart extends Component {
       })
     };
 
-    _setState(partial) {
-      this._state = {
-        ...this._state,
-        ...partial
-      };
-      this._updateView();
-    };
+
     _updateView() {
       this._render();
 

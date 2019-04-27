@@ -9,22 +9,13 @@ export default class PhonesCatalog extends Component {
     }
     this._onPhoneSelected = onPhoneSelected;
     this._render();
+    
     this.on("click", "details-link", ({delegateTarget: detailsLink}) => {this._onPhoneSelected(detailsLink.dataset.phoneId)});
 
-    this._element.addEventListener("mouseover", (event) => {
-      const li = event.target.closest('.thumbnail');
-      if(!li) return;
-      li.querySelector(".btn-success").style.visibility = "";
-      li.addEventListener("mouseout", () => {
-        li.querySelector(".btn-success").style.visibility = "hidden";
-      })
-    });
-
-    this._element.addEventListener("click", (event) => {
-      const addButton = event.target.closest('[data-element="add-button"]');
-      if(!addButton) return;
+    this.on("click", "add-button", ({delegateTarget: addButton}) => {
       this._props.onAdd(addButton.dataset.phoneId);
     });
+
 
     }
 
@@ -42,7 +33,7 @@ export default class PhonesCatalog extends Component {
         </a>
 
         <div class="phones__btn-buy-wrapper">
-          <a data-element="add-button" data-phone-id="${phone.id}" class="btn btn-success" style="visibility: hidden">
+          <a data-element="add-button" data-phone-id="${phone.id}" class="btn btn-success">
             Add
           </a>
         </div>
