@@ -12,13 +12,8 @@ export default class PhonesPage extends Component {
         phones: phoneService.getAllPhones(),
         selectedPhone: null,
       };
-      this._render();
-      this._initCatalog();
-      this._initViewer();
-      this._initCart();
-      this._initFilter();
-
-
+      
+     this._render();
 
     }
 
@@ -28,11 +23,8 @@ export default class PhonesPage extends Component {
       phones: this._state.phones, 
 
       onPhoneSelected: (phoneId) => {
-       const selectedPhone = phoneService.getPhoneById(phoneId);
-       this._state.selectedPhone = selectedPhone;
-       this._phonesCatalog.hide();
-       this._phoneViewer.setProps({phone: selectedPhone});
-       this._phoneViewer.show();
+       this._setState({selectedPhone: phoneService.getPhoneById(phoneId)});
+
       },
 
       onAdd: (phoneId) => {
@@ -45,8 +37,7 @@ export default class PhonesPage extends Component {
     _initViewer() {
       this._phoneViewer = new PhoneViewer({element: document.querySelector(".phone-viewer"),
       onBack: () => {
-      this._phonesCatalog.show();
-      this._phoneViewer.hide()
+      this._setState({selectedPhone: null});
       },
       onAdd: (phoneId) => {
         this._cart.add(phoneId);
@@ -86,5 +77,23 @@ export default class PhonesPage extends Component {
         </div>
       </div>
     `;
+
+    this._initCatalog();
+    this._initViewer();
+    this._initCart();
+    this._initFilter();
+
     };
+
+    _updateView() {
+      this._phoneViewer.setProps({phone: this._state.selectedPhone});
+      if(this._state.selectedPhone) {
+      this._phonesCatalog.hide();
+      this._phoneViewer.show();
+      } else {
+        this._phonesCatalog.show();
+        this._phoneViewer.hide();
+      };
+    };
+
 };
