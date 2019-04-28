@@ -19,9 +19,7 @@ export default class PhonesPage extends Component {
 
     _initCatalog() {
       this._phonesCatalog = new PhonesCatalog({element: document.querySelector(".phones-catalog"), 
-
       phones: this._state.phones, 
-
       onPhoneSelected: (phoneId) => {
        this._setState({selectedPhone: phoneService.getPhoneById(phoneId)});
 
