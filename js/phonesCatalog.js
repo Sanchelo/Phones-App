@@ -1,22 +1,17 @@
 import Component from "./component.js";
 
 export default class PhonesCatalog extends Component {
-    constructor({element, phones, onPhoneSelected, onAdd}) {
-    super({element});
-    this._props = {
-        phones: phones,
-        onAdd: onAdd,
-    }
-    this._onPhoneSelected = onPhoneSelected;
-    this._render();
+    constructor(element, props) {
+    super(element, props);
+
     
-    this.on("click", "details-link", ({delegateTarget: detailsLink}) => {this._onPhoneSelected(detailsLink.dataset.phoneId)});
+    this.on("click", "details-link", ({delegateTarget: detailsLink}) => {this._props.onPhoneSelected(detailsLink.dataset.phoneId)});
 
     this.on("click", "add-button", ({delegateTarget: addButton}) => {
       this._props.onAdd(addButton.dataset.phoneId);
     });
 
-
+    this._render();
     }
 
     _render() {

@@ -1,13 +1,9 @@
 import Component from "./component.js";
 
 export default class PhoneViewer extends Component {
-    constructor({element, onBack, onAdd}) {
-    super({element});
-    this._props = {
-      phone: null,
-      onBack: onBack,
-      onAdd: onAdd,
-    };
+    constructor(element, props) {
+    super(element, props);
+
 
     this.on("click", "back-button", () => {
       this._props.onBack();
@@ -25,6 +21,8 @@ export default class PhoneViewer extends Component {
       currentImage: null,
 
     };
+
+    this._render();
 
     }
 
@@ -54,8 +52,5 @@ export default class PhoneViewer extends Component {
     `;
     };
 
-    _updateView() {
-      this._render();
-    };
 
 }

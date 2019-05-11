@@ -1,15 +1,19 @@
 export default class Component {
-    constructor({element}) {
+    constructor(element, props = {}) {
       this._element = element;
+      this._props = props;
       this._state = {};
-      this._props = {};
+      this._components = {};
     }
-    hide() {
-      this._element.hidden = true;
-    };
 
-    show() {
-      this._element.hidden = false;
+    _initComponent(constructor, props) {
+      const name = constructor.name;
+      const element = this._element.querySelector(`[data-component = "${name}"]`);
+      if(!element) {
+        this._components[name] = null;
+        return;
+      };
+      this._components[name] = new constructor(element, props);
     };
 
     on(eventName, elementName, callback) {
@@ -26,7 +30,7 @@ export default class Component {
         ...this._state,
         ...partial
       };
-      this._updateView();
+      this._render();
     };
 
     setProps(partial) {
@@ -34,7 +38,7 @@ export default class Component {
         ...this._props,
         ...partial
       };
-      this._updateView();
+      this._render();
     };
     
   };
