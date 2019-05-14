@@ -13,7 +13,17 @@ export default class Component {
         this._components[name] = null;
         return;
       };
-      this._components[name] = new constructor(element, props);
+
+      const currentInstance = this._components[name];
+      if(currentInstance) {
+        currentInstance.setProps(props);
+        element.parentNode.replaceChild(currentInstance._element, element);
+      }
+      else {
+        this._components[name] = new constructor(element, props);
+      }
+
+
     };
 
     on(eventName, elementName, callback) {

@@ -3,9 +3,9 @@ import Component from "./component.js";
 export default class Cart extends Component {
     constructor(element, props) {
     super(element, props);
-    this._state = {
-      items: [],
-    }
+    this.on("click", "remove-button", ({delegateTarget: removeButton})=> {
+      this._props.onRemove(removeButton.dataset.item)
+    });
     this._render();
     }
     _render() {
@@ -13,7 +13,8 @@ export default class Cart extends Component {
     `
     <p>Shopping Cart</p>
               <ul>
-                ${this._state.items.map(item => `<li><span>${item}</span><button>X</button></li>`).join("")}
+                ${this._props.items.map(item => `<li><span>${item}</span>
+                <button data-element="remove-button" data-item="${item}">X</button></li>`).join("")}
               </ul>
     `;
     };

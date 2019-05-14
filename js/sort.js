@@ -3,14 +3,26 @@ import Component from "./component.js";
 export default class Sort extends Component {
     constructor(element, props) {
     super(element, props);
+
+    this._state = {
+      value: "",
+    };
+
+    this.on("change", "query", ({delegateTarget}) => {
+      this._setState({
+        value: delegateTarget.value
+      });
+    });
     this._render();
     }
+
     _render() {
         this._element.innerHTML = 
         `
         <p>
         Search:
-        <input>
+        <input data-element="query"
+        value="${this._state.value}">
       </p>
 
       <p>
