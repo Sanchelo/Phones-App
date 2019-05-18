@@ -1,29 +1,41 @@
 
 
 const phoneService = {
-    getAllPhones() {
+    getAllPhones({onSuccess, onError}) {
         const API_URL = 'https://raw.githubusercontent.com/Sanchelo/Phones-App/gh-pages/api/phones.json';
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", API_URL, false);
+        xhr.open("GET", API_URL, true);
         xhr.send();
-        if(xhr.status !== 200) {
-            console.error(`Error occured: ${xhr.status}: ${xhr.statusText}`);
-            return[];
+
+        xhr.onload = () => {
+            
+        if(xhr.status === 200) {
+            onSuccess(JSON.parse(xhr.responseText)) 
         }
-        console.log(xhr.responseText);
-        return JSON.parse(xhr.responseText);
+        else {
+            onError(`Error occured: ${xhr.status}: ${xhr.statusText}`);
+            return;
+        };
+    };
+
     },
-    getPhoneById(phoneId) {
+    getPhoneById({phoneId, onSuccess, onError = () => {}}) {
         const API_URL = `https://raw.githubusercontent.com/Sanchelo/Phones-App/gh-pages/api/phones/${phoneId}.json`;
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", API_URL, false);
+        xhr.open("GET", API_URL, true);
         xhr.send();
-        if(xhr.status !== 200) {
-            console.error(`Error occured: ${xhr.status}: ${xhr.statusText}`);
-            return[];
+        xhr.onload = () => {
+            
+     
+        if(xhr.status === 200) {
+            onSuccess(JSON.parse(xhr.responseText)) 
         }
-        console.log(xhr.responseText);
-        return JSON.parse(xhr.responseText);
+        else {
+            onError(`Error occured: ${xhr.status}: ${xhr.statusText}`);
+            return;
+        };
+    };
+
     }
 };
 

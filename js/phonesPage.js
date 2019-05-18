@@ -14,20 +14,40 @@ export default class PhonesPage extends Component {
       this.removeItem = this.removeItem.bind(this);
 
       this._state = {
-        phones: phoneService.getAllPhones(),
+        phones: [],
         selectedPhone: null,
         items: [],
       };
       
      this._render();
 
+     phoneService.getAllPhones({
+
+      onSuccess: (phones) => {
+        this._setState({phones});
+      },
+
+      onError: (errorMessage) => {
+        console.error(errorMessage);
+      },
+
+     });
+     
     }
 
 
     setSelectedPhone(phoneId) {
-      this._setState({
-        selectedPhone: phoneService.getPhoneById(phoneId),
+      phoneService.getPhoneById({
+        phoneId: phoneId,
+
+        onSuccess: (phoneDetails) => {
+          this._setState({
+            selectedPhone: phoneDetails,
+          });
+        },
+
       });
+
     };
 
     addItem(phoneId) {
